@@ -5,6 +5,7 @@ local TweenService = game:GetService("TweenService")
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false -- Keeps GUI open even after respawn
 
 -- Create the Button
 local button = Instance.new("TextButton")
@@ -26,6 +27,10 @@ button.BorderColor3 = Color3.fromRGB(255, 255, 255) -- White border
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 10) -- Adjust radius for roundness
 corner.Parent = button
+
+-- Keep GUI on Top (Prevents it from hiding)
+screenGui.IgnoreGuiInset = true
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 -- Button Click Function
 button.MouseButton1Click:Connect(function()

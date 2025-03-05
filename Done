@@ -1,0 +1,52 @@
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create the Button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 200, 0, 50) -- Default size
+button.Position = UDim2.new(0.5, -100, 0.5, -25) -- Center of screen
+button.Text = "Unsuspend VC"
+button.BackgroundColor3 = Color3.fromRGB(50, 150, 255) -- Light blue
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 20
+button.Parent = screenGui
+button.Draggable = true
+button.Active = true
+button.AutoButtonColor = false -- Prevent default hover effect
+button.BorderSizePixel = 2 -- Adds a border
+button.BorderColor3 = Color3.fromRGB(255, 255, 255) -- White border
+
+-- Round the edges
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10) -- Adjust radius for roundness
+corner.Parent = button
+
+-- Button Click Function
+button.MouseButton1Click:Connect(function()
+    local url = "https://raw.githubusercontent.com/xGodOfBreadx/unsuspendRVC/refs/heads/main/unsuspend"
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+
+    if success then
+        print("Script executed successfully!")
+        button.Text = "Unsuspended"
+        button.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green for success
+    else
+        warn("Error executing script: " .. tostring(result))
+        button.Text = "Retry please!"
+        button.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red for failure
+    end
+
+    -- Reset back to blue after 2 seconds
+    task.delay(2, function()
+        button.Text = "Unsuspend VC"
+        button.BackgroundColor3 = Color3.fromRGB(50, 150, 255) -- Back to blue
+    end)
+end)

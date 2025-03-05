@@ -1,0 +1,118 @@
+-- Create GUI Elements
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TitleLabel = Instance.new("TextLabel")
+local Button1 = Instance.new("TextButton")
+local Button2 = Instance.new("TextButton")
+local Button3 = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+local UIS = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+
+-- Parent GUI to Player's GUI
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Main GUI Frame Properties
+MainFrame.Size = UDim2.new(0, 300, 0, 200)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+MainFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+MainFrame.BorderSizePixel = 2
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- Title Label Properties
+TitleLabel.Size = UDim2.new(1, 0, 0.2, 0)
+TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+TitleLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+TitleLabel.TextColor3 = Color3.new(0, 0, 0)
+TitleLabel.Text = "Random Number Generator"
+TitleLabel.Font = Enum.Font.Arcade -- Minecraft-style font
+TitleLabel.TextScaled = true -- Make text larger
+TitleLabel.Parent = MainFrame
+
+-- Function to create buttons
+local function createButton(button, position, text, parent)
+    button.Size = UDim2.new(0.8, 0, 0.2, 0)
+    button.Position = UDim2.new(0.1, 0, position, 0)
+    button.BackgroundColor3 = Color3.new(0, 0, 0)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.Text = text
+    button.Font = Enum.Font.Arcade -- Minecraft-style font
+    button.TextScaled = true -- Make text larger
+    button.BorderSizePixel = 3 -- Wider borders
+    button.Parent = parent
+end
+
+-- Create buttons with text
+createButton(Button1, 0.3, "Random 1-10", MainFrame)
+createButton(Button2, 0.55, "Random 1-50", MainFrame)
+createButton(Button3, 0.8, "Random 1-100", MainFrame)
+
+-- Close Button Properties
+CloseButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
+CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.Text = "X"
+CloseButton.Font = Enum.Font.Arcade -- Minecraft-style font
+CloseButton.TextScaled = true
+CloseButton.Parent = MainFrame
+
+-- Close Button Functionality
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- Function to create a new GUI for number animation
+local function createNumberAnimationGui(range)
+    ScreenGui.Enabled = false -- Hide main GUI instead of destroying it
+    
+    local NewGui = Instance.new("ScreenGui")
+    local NumberFrame = Instance.new("Frame")
+    local NumberLabel = Instance.new("TextLabel")
+    
+    NewGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    
+    NumberFrame.Size = UDim2.new(0, 300, 0, 200)
+    NumberFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    NumberFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+    NumberFrame.BorderSizePixel = 2
+    NumberFrame.Parent = NewGui
+    
+    NumberLabel.Size = UDim2.new(1, 0, 1, 0)
+    NumberLabel.Position = UDim2.new(0, 0, 0, 0)
+    NumberLabel.TextColor3 = Color3.new(0, 0, 0)
+    NumberLabel.Font = Enum.Font.Arcade -- Minecraft-style font
+    NumberLabel.TextScaled = true
+    NumberLabel.Parent = NumberFrame
+    
+    -- Show changing numbers for 3 seconds
+    local startTime = tick()
+    while tick() - startTime < 3 do
+        NumberLabel.Text = tostring(math.random(1, range))
+        wait(0.1)
+    end
+    
+    -- Show the final selected number in large text
+    local finalNumber = math.random(1, range)
+    NumberLabel.Text = "YOU GOT: " .. tostring(finalNumber)
+    NumberLabel.TextSize = 40
+    
+    wait(2) -- Wait 2 seconds before going back to the main GUI
+    NewGui:Destroy()
+    ScreenGui.Enabled = true -- Show main GUI again
+end
+
+-- Button Click Functions
+Button1.MouseButton1Click:Connect(function()
+    createNumberAnimationGui(10)
+end)
+
+Button2.MouseButton1Click:Connect(function()
+    createNumberAnimationGui(50)
+end)
+
+Button3.MouseButton1Click:Connect(function()
+    createNumberAnimationGui(100)
+end)

@@ -13,8 +13,8 @@ local StarterGui = game:GetService("StarterGui")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- Main GUI Frame Properties
-MainFrame.Size = UDim2.new(0, 300, 0, 200)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+MainFrame.Size = UDim2.new(0, 300, 0, 250) -- Increased height for more space
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -125)
 MainFrame.BackgroundColor3 = Color3.new(1, 1, 1)
 MainFrame.BorderSizePixel = 2
 MainFrame.Active = true
@@ -22,8 +22,8 @@ MainFrame.Draggable = true
 MainFrame.Parent = ScreenGui
 
 -- Title Label Properties
-TitleLabel.Size = UDim2.new(1, 0, 0.2, 0)
-TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+TitleLabel.Size = UDim2.new(1, 0, 0.15, 0) -- Reduced height to prevent overlap with close button
+TitleLabel.Position = UDim2.new(0, 0, 0.05, 0) -- Moved down slightly
 TitleLabel.BackgroundColor3 = Color3.new(1, 1, 1)
 TitleLabel.TextColor3 = Color3.new(0, 0, 0)
 TitleLabel.Text = "Random Number Generator"
@@ -45,12 +45,12 @@ local function createButton(button, position, text, parent)
 end
 
 -- Create buttons with text
-createButton(Button1, 0.3, "Random 1-10", MainFrame)
+createButton(Button1, 0.35, "Random 1-10", MainFrame)
 createButton(Button2, 0.55, "Random 1-50", MainFrame)
-createButton(Button3, 0.8, "Random 1-100", MainFrame)
+createButton(Button3, 0.75, "Random 1-100", MainFrame)
 
 -- Close Button Properties
-CloseButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+CloseButton.Size = UDim2.new(0.05, 0, 0.05, 0)
 CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
 CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
 CloseButton.TextColor3 = Color3.new(1, 1, 1)
